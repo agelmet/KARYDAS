@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="el" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Χρήστος Καρύδας | Ψυχολόγος - Ψυχοθεραπευτής</title>
+    <meta name="description" content="Ψυχοθεραπεία με σεβασμό στον άνθρωπο και την εμπειρία του. Γνωσιακή – Συμπεριφορική Ψυχοθεραπεία από τον Χρήστο Καρύδα.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        calm: {
+                            dark: '#1a202c',     // Deep slate/midnight
+                            primary: '#2d3748',  // Slate blue
+                            muted: '#718096',    // Soft greyish blue
+                            light: '#f7fafc',    // Very soft cool white
+                            accent: '#4a5568',   // Steel accent
+                            surface: '#edf2f7'   // Subtle background contrast
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    boxShadow: {
+                        'lux': '0 20px 40px -15px rgba(26, 32, 44, 0.08)',
+                        'floating': '0 30px 60px -20px rgba(26, 32, 44, 0.12)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Minimalist Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f7fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a0aec0; }
+
+        /* Reveal Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.2s; }
+        .reveal-delay-2 { transition-delay: 0.4s; }
+
+        /* Image Hover Zoom */
+        .img-hover-zoom { overflow: hidden; }
+        .img-hover-zoom img { transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .img-hover-zoom:hover img { transform: scale(1.05); }
+
+        /* Custom Glass Effect */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        /* Lightbox */
+        #lightbox {
+            opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+        #lightbox.active { opacity: 1; pointer-events: auto; }
+        #lightbox img { transform: scale(0.95); transition: transform 0.5s ease; }
+        #lightbox.active img { transform: scale(1); }
+    </style>
+</head>
+<body class="bg-calm-light text-calm-primary font-sans antialiased overflow-x-hidden selection:bg-calm-primary selection:text-white">
+
+    <nav class="fixed w-full z-50 transition-all duration-500 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex flex-col group">
+                <span class="font-serif text-2xl font-semibold text-calm-dark tracking-wide group-hover:text-calm-muted transition-colors">Χρήστος Καρύδας</span>
+                <span class="text-xs uppercase tracking-widest text-calm-muted mt-0.5">Ψυχολόγος - Ψυχοθεραπευτής</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-10">
+                <a href="#about" class="text-sm tracking-wide text-calm-accent hover:text-calm-dark transition-colors">Ποιος είμαι</a>
+                <a href="#approach" class="text-sm tracking-wide text-calm-accent hover:text-calm-dark transition-colors">Προσέγγιση</a>
+                <a href="#services" class="text-sm tracking-wide text-calm-accent hover:text-calm-dark transition-colors">Υπηρεσίες</a>
+                <a href="#space" class="text-sm tracking-wide text-calm-accent hover:text-calm-dark transition-colors">Χώρος</a>
+                <a href="#contact" class="px-7 py-2.5 bg-calm-dark text-white rounded-sm text-sm tracking-wide hover:bg-calm-accent transition-colors">Επικοινωνία</a>
+            </div>
+
+            <button class="lg:hidden text-calm-dark focus:outline-none" id="mobile-menu-btn">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white shadow-lux hidden flex-col items-center py-8 space-y-6 border-t border-gray-100">
+            <a href="#about" class="text-lg font-serif text-calm-dark mobile-link">Ποιος είμαι</a>
+            <a href="#approach" class="text-lg font-serif text-calm-dark mobile-link">Προσέγγιση</a>
+            <a href="#services" class="text-lg font-serif text-calm-dark mobile-link">Υπηρεσίες</a>
+            <a href="#space" class="text-lg font-serif text-calm-dark mobile-link">Χώρος</a>
+            <a href="#contact" class="px-8 py-3 bg-calm-dark text-white rounded-sm text-sm tracking-wide mobile-link">Επικοινωνία</a>
+        </div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto w-full px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            
+            <div class="reveal order-2 lg:order-1 z-10">
+                <div class="w-12 h-[1px] bg-calm-muted mb-8"></div>
+                <h1 class="text-5xl lg:text-6xl xl:text-7xl font-serif text-calm-dark leading-[1.1] mb-8">
+                    Ψυχοθεραπεία με <span class="italic text-calm-muted">σεβασμό</span> στον άνθρωπο και την εμπειρία του.
+                </h1>
+                <p class="text-lg lg:text-xl text-calm-accent mb-12 max-w-lg leading-relaxed font-light">
+                    Εδώ μπορείτε να ενημερωθείτε για τη ψυχοθεραπευτική διαδικασία και τον τρόπο με τον οποίο μπορούμε να συνεργαστούμε, σε ένα πλαίσιο ασφάλειας, εμπιστοσύνης και σεβασμού.
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="#contact" class="px-8 py-4 bg-calm-dark text-white rounded-sm text-sm tracking-widest uppercase hover:bg-calm-accent transition-all">
+                        Κλειστε Ραντεβου
+                    </a>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2 reveal reveal-delay-1 relative h-[50vh] lg:h-[80vh] w-full">
+                <div class="absolute inset-0 img-hover-zoom rounded-tr-[4rem] rounded-bl-[4rem] overflow-hidden shadow-floating">
+                    <img src="https://github.com/agelmet/KARYDAS/blob/main/DSC09709.jpg?raw=true" alt="Χώρος Ψυχοθεραπείας" class="w-full h-full object-cover object-center">
+                    <div class="absolute inset-0 bg-calm-dark/10 mix-blend-multiply"></div>
+                </div>
+                <div class="absolute -bottom-6 -left-6 w-32 h-32 border border-calm-muted/30 rounded-full z-[-1]"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 md:py-32 px-6 bg-calm-surface relative">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 items-start">
+            
+            <div class="lg:col-span-5 sticky top-32 reveal">
+                <div class="img-hover-zoom rounded-t-full overflow-hidden shadow-lux">
+                    <img src="https://github.com/agelmet/KARYDAS/blob/main/SHA08455-Edit.jpg?raw=true" alt="Χρήστος Καρύδας" class="w-full h-auto object-cover grayscale-[20%]">
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 reveal reveal-delay-1">
+                <span class="text-xs uppercase tracking-widest text-calm-muted mb-4 block">Ποιος Είμαι</span>
+                <h2 class="text-4xl lg:text-5xl font-serif text-calm-dark mb-10">Χρήστος Καρύδας</h2>
+                
+                <div class="space-y-8 text-calm-accent font-light leading-relaxed text-lg">
+                    <p class="font-medium text-calm-dark border-l-2 border-calm-muted pl-6 italic">
+                        Είμαι Ψυχολόγος – Ψυχοθεραπευτής, κάτοχος άδειας άσκησης επαγγέλματος (Αρ. Πρ.: 1135/10072014).
+                    </p>
+                    <p>
+                        Στη δουλειά μου, στόχος είναι η δημιουργία ενός ασφαλούς και υποστηρικτικού πλαισίου, μέσα στο οποίο κάθε άνθρωπος μπορεί να μιλήσει ανοιχτά, να κατανοήσει τις δυσκολίες του και να εργαστεί ουσιαστικά προς την αλλαγή. Η ψυχοθεραπεία, για μένα, είναι μια συνεργατική διαδικασία που βασίζεται στον σεβασμό, την εμπιστοσύνη και την ενεργή συμμετοχή.
+                    </p>
+                    
+                    <div class="pt-8">
+                        <h3 class="text-2xl font-serif text-calm-dark mb-4">Εκπαίδευση & Κατάρτιση</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="graduation-cap" class="w-6 h-6 text-calm-muted shrink-0 mt-1"></i>
+                                <div>
+                                    <span class="block text-calm-dark font-medium">Απόφοιτος Ψυχολογίας</span>
+                                    <span class="text-sm">Πάντειο Πανεπιστήμιο</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="book-open" class="w-6 h-6 text-calm-muted shrink-0 mt-1"></i>
+                                <div>
+                                    <span class="block text-calm-dark font-medium">Μεταπτυχιακό Δίπλωμα Σπουδών</span>
+                                    <span class="text-sm">«Προαγωγή Ψυχικής Υγείας – Πρόληψη Ψυχιατρικών Διαταραχών», Ιατρική Σχολή ΕΚΠΑ</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="award" class="w-6 h-6 text-calm-muted shrink-0 mt-1"></i>
+                                <div>
+                                    <span class="block text-calm-dark font-medium">Κλινική Εξειδίκευση</span>
+                                    <span class="text-sm">Γνωσιακή – Συμπεριφορική Ψυχοθεραπεία στην Εταιρεία Γνωσιακών Συμπεριφοριστικών Σπουδών</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-8 border-t border-calm-dark/10">
+                        <h3 class="text-2xl font-serif text-calm-dark mb-4">Επαγγελματική Εμπειρία & Συνεργασίες</h3>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <ul class="space-y-2 list-disc list-inside marker:text-calm-muted">
+                                <li>Κέντρο Υποδοχής και Αλληλεγγύης Δήμου Αθηναίων</li>
+                                <li>Κέντρο Ημέρας Therapy Express</li>
+                                <li>Αιγινήτειο Νοσοκομείο (Πρόγραμμα «Αθηνά»)</li>
+                            </ul>
+                            <ul class="space-y-2 list-disc list-inside marker:text-calm-muted">
+                                <li>Πανεπιστημιακό Γενικό Νοσοκομείο Αττικόν</li>
+                                <li>ΕΠΑΨΥ (Κέντρο Ημέρας & Οικοτροφείο)</li>
+                                <li>Δήμος Ηλιούπολης & Ψυχογηριατρική Εταιρεία Ο Νέστωρ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="approach" class="py-24 md:py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                <span class="text-xs uppercase tracking-widest text-calm-muted mb-4 block">Πως Δουλεύω</span>
+                <h2 class="text-4xl lg:text-5xl font-serif text-calm-dark mb-6">Γνωσιακή – Συμπεριφορική Ψυχοθεραπεία</h2>
+                <p class="text-lg text-calm-accent font-light">
+                    Μια επιστημονικά τεκμηριωμένη μέθοδος που εστιάζει στη σχέση ανάμεσα στις σκέψεις, τα συναισθήματα και τις συμπεριφορές.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-10 mb-24">
+                <div class="p-10 border border-calm-surface hover:shadow-lux transition-all duration-500 bg-white reveal">
+                    <i data-lucide="brain-circuit" class="w-10 h-10 text-calm-dark mb-6 stroke-[1.5]"></i>
+                    <h4 class="text-xl font-serif text-calm-dark mb-4">Διερεύνηση</h4>
+                    <p class="text-calm-accent text-sm leading-relaxed">
+                        Διερευνούμε μοτίβα σκέψης που δυσκολεύουν την καθημερινότητα και επηρεάζουν τη συναισθηματική εμπειρία.
+                    </p>
+                </div>
+                <div class="p-10 border border-calm-surface hover:shadow-lux transition-all duration-500 bg-white reveal reveal-delay-1">
+                    <i data-lucide="eye" class="w-10 h-10 text-calm-dark mb-6 stroke-[1.5]"></i>
+                    <h4 class="text-xl font-serif text-calm-dark mb-4">Αναγνώριση</h4>
+                    <p class="text-calm-accent text-sm leading-relaxed">
+                        Αναγνωρίζουμε συμπεριφορές που συντηρούν τη δυσφορία, εστιάζοντας στο πώς αλληλεπιδρούν στην καθημερινή ζωή.
+                    </p>
+                </div>
+                <div class="p-10 border border-calm-surface hover:shadow-lux transition-all duration-500 bg-white reveal reveal-delay-2">
+                    <i data-lucide="leaf" class="w-10 h-10 text-calm-dark mb-6 stroke-[1.5]"></i>
+                    <h4 class="text-xl font-serif text-calm-dark mb-4">Ανάπτυξη</h4>
+                    <p class="text-calm-accent text-sm leading-relaxed">
+                        Αναπτύσσουμε πρακτικούς και λειτουργικούς τρόπους αντιμετώπισης, ενισχύοντας την αίσθηση ελέγχου.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-calm-dark text-white p-12 lg:p-20 rounded-bl-[4rem] rounded-tr-[4rem] reveal">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-serif mb-6">Σε ποιους απευθύνομαι;</h3>
+                        <p class="text-calm-muted mb-8 leading-relaxed">
+                            Η κλινική μου πρακτική περιλαμβάνει ατομική ψυχοθεραπεία και συμβουλευτική. Εργάζομαι με ενήλικες που αντιμετωπίζουν ζητήματα όπως:
+                        </p>
+                        <a href="#contact" class="inline-flex items-center gap-2 text-sm uppercase tracking-widest border-b border-calm-muted pb-1 hover:text-white hover:border-white transition-colors">
+                            Επικοινωνηστε μαζι μου <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-white rounded-full"></div><span>Άγχος και στρες</span></div>
+                        <div class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-white rounded-full"></div><span>Καταθλιπτική διάθεση</span></div>
+                        <div class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-white rounded-full"></div><span>Έμμονες σκέψεις</span></div>
+                        <div class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-white rounded-full"></div><span>Διαχείριση συναισθημάτων</span></div>
+                        <div class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-white rounded-full"></div><span>Χαμηλή αυτοεκτίμηση</span></div>
+                        <div class="flex items-center gap-3"><div class="w-1.5 h-1.5 bg-white rounded-full"></div><span>Διαπροσωπικές σχέσεις</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="services" class="py-24 px-6 bg-calm-surface">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="text-xs uppercase tracking-widest text-calm-muted mb-4 block">Υπηρεσίες</span>
+                <h2 class="text-4xl lg:text-5xl font-serif text-calm-dark">Μορφές Θεραπείας</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="bg-white p-12 hover:shadow-floating transition-shadow duration-500 border border-black/5 reveal">
+                    <h3 class="text-2xl font-serif text-calm-dark mb-4">Ατομική Ψυχοθεραπεία Ενηλίκων</h3>
+                    <p class="text-calm-accent font-light leading-relaxed">
+                        Απευθύνεται σε ενήλικες που επιθυμούν να κατανοήσουν σε βάθος τις δυσκολίες που αντιμετωπίζουν και να εργαστούν προς ουσιαστικές αλλαγές. Σε ένα ασφαλές πλαίσιο, διερευνούμε μαζί σκέψεις, συναισθήματα και συμπεριφορές, με στόχο την ανάπτυξη λειτουργικών τρόπων αντιμετώπισης.
+                    </p>
+                </div>
+                <div class="bg-white p-12 hover:shadow-floating transition-shadow duration-500 border border-black/5 reveal reveal-delay-1">
+                    <h3 class="text-2xl font-serif text-calm-dark mb-4">Διαδικτυακή Ψυχοθεραπεία</h3>
+                    <p class="text-calm-accent font-light leading-relaxed">
+                        Προσφέρει τη δυνατότητα πραγματοποίησης συνεδριών εξ αποστάσεως, μέσω ασφαλών πλατφορμών. Μια ευέλικτη επιλογή για άτομα που δυσκολεύονται να παρευρεθούν δια ζώσης ή διαμένουν εκτός Αθηνών. Διατηρεί τον ίδιο επαγγελματισμό, δομή και συνέπεια.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="space" class="py-24 md:py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div class="max-w-2xl">
+                    <span class="text-xs uppercase tracking-widest text-calm-muted mb-4 block">Το Γραφείο</span>
+                    <h2 class="text-4xl lg:text-5xl font-serif text-calm-dark mb-4">Ο Χώρος</h2>
+                    <p class="text-calm-accent font-light">
+                        Ο χώρος έχει διαμορφωθεί με στόχο να προσφέρει αίσθημα ασφάλειας, ηρεμίας και εμπιστευτικότητας, υποστηρίζοντας ουσιαστικά τη θεραπευτική διαδικασία.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button class="img-hover-zoom overflow-hidden group relative reveal cursor-zoom-in" onclick="openLightbox('https://github.com/agelmet/KARYDAS/blob/main/DSC09700-HDR.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/KARYDAS/blob/main/DSC09700-HDR.jpg?raw=true" alt="Χώρος 1" class="w-full h-[400px] object-cover">
+                    <div class="absolute inset-0 bg-calm-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                    </div>
+                </button>
+                <button class="img-hover-zoom overflow-hidden group relative reveal reveal-delay-1 cursor-zoom-in" onclick="openLightbox('https://github.com/agelmet/KARYDAS/blob/main/DSC09709.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/KARYDAS/blob/main/DSC09709.jpg?raw=true" alt="Χώρος 2" class="w-full h-[400px] object-cover">
+                    <div class="absolute inset-0 bg-calm-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                    </div>
+                </button>
+                <button class="img-hover-zoom overflow-hidden group relative reveal cursor-zoom-in" onclick="openLightbox('https://github.com/agelmet/KARYDAS/blob/main/DSC09747.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/KARYDAS/blob/main/DSC09747.jpg?raw=true" alt="Χώρος 3" class="w-full h-[400px] object-cover">
+                    <div class="absolute inset-0 bg-calm-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                    </div>
+                </button>
+                <button class="img-hover-zoom overflow-hidden group relative reveal reveal-delay-1 cursor-zoom-in" onclick="openLightbox('https://github.com/agelmet/KARYDAS/blob/main/DSC09750.jpg?raw=true')">
+                    <img src="https://github.com/agelmet/KARYDAS/blob/main/DSC09750.jpg?raw=true" alt="Χώρος 4" class="w-full h-[400px] object-cover">
+                    <div class="absolute inset-0 bg-calm-dark/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-calm-dark text-center px-6">
+        <div class="max-w-4xl mx-auto reveal">
+            <i data-lucide="quote" class="w-12 h-12 text-calm-muted/50 mx-auto mb-8"></i>
+            <h2 class="text-3xl md:text-4xl font-serif text-white mb-8 leading-snug">
+                "Η ψυχοθεραπεία δεν είναι μια διαδικασία έτοιμων απαντήσεων, αλλά ένας χώρος κατανόησης, ενδυνάμωσης και σταδιακής αλλαγής."
+            </h2>
+            <p class="text-calm-muted font-light tracking-wide uppercase text-sm">Χρήστος Καρύδας</p>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 md:py-32 px-6 bg-calm-surface">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
+            
+            <div class="reveal">
+                <span class="text-xs uppercase tracking-widest text-calm-muted mb-4 block">Επικοινωνία</span>
+                <h2 class="text-4xl font-serif text-calm-dark mb-6">Ας ξεκινήσουμε τη συνεργασία μας</h2>
+                <p class="text-calm-accent font-light mb-12">
+                    Αν επιθυμείτε να επικοινωνήσετε μαζί μου ή να ζητήσετε περισσότερες πληροφορίες, μπορείτε να χρησιμοποιήσετε τα στοιχεία επικοινωνίας ή την παρακάτω φόρμα.
+                </p>
+
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4 bg-white p-6 border border-black/5">
+                        <div class="w-12 h-12 bg-calm-light flex items-center justify-center rounded-full shrink-0">
+                            <i data-lucide="phone" class="w-5 h-5 text-calm-dark"></i>
+                        </div>
+                        <div>
+                            <span class="block text-sm text-calm-muted uppercase tracking-wider mb-1">Τηλέφωνο</span>
+                            <a href="tel:+306981465627" class="text-lg font-medium text-calm-dark hover:text-calm-accent transition-colors">698 146 5627</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 bg-white p-6 border border-black/5">
+                        <div class="w-12 h-12 bg-calm-light flex items-center justify-center rounded-full shrink-0">
+                            <i data-lucide="mail" class="w-5 h-5 text-calm-dark"></i>
+                        </div>
+                        <div>
+                            <span class="block text-sm text-calm-muted uppercase tracking-wider mb-1">Email</span>
+                            <a href="mailto:info@chkaridas.gr" class="text-lg font-medium text-calm-dark hover:text-calm-accent transition-colors">info@chkaridas.gr</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 bg-white p-6 border border-black/5">
+                        <div class="w-12 h-12 bg-calm-light flex items-center justify-center rounded-full shrink-0">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-calm-dark"></i>
+                        </div>
+                        <div>
+                            <span class="block text-sm text-calm-muted uppercase tracking-wider mb-1">Διεύθυνση</span>
+                            <span class="text-base text-calm-dark block">Παπαδιαμαντοπούλου 9, Αθήνα</span>
+                            <span class="text-sm text-calm-muted">Πλησίον σταθμού Μετρό Μέγαρο Μουσικής</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-10 lg:p-12 shadow-floating border border-black/5 reveal reveal-delay-1">
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm text-calm-muted mb-2">Όνομα</label>
+                        <input type="text" id="name" name="name" class="w-full border-b border-calm-surface py-3 focus:outline-none focus:border-calm-dark transition-colors bg-transparent text-calm-dark" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm text-calm-muted mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full border-b border-calm-surface py-3 focus:outline-none focus:border-calm-dark transition-colors bg-transparent text-calm-dark" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm text-calm-muted mb-2">Μήνυμα</label>
+                        <textarea id="message" name="message" rows="4" class="w-full border-b border-calm-surface py-3 focus:outline-none focus:border-calm-dark transition-colors bg-transparent text-calm-dark resize-none" required></textarea>
+                    </div>
+                    <p class="text-xs text-calm-muted italic">Το μήνυμα αυτό δεν αντικαθιστά ψυχοθεραπευτική συνεδρία.</p>
+                    <button type="submit" class="w-full bg-calm-dark text-white py-4 text-sm tracking-widest uppercase hover:bg-calm-accent transition-colors">
+                        Αποστολή Μηνύματος
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-calm-dark text-white py-10 border-t border-white/10 text-center px-6">
+        <div class="max-w-4xl mx-auto space-y-4">
+            <h3 class="font-serif text-2xl mb-2">Χρήστος Καρύδας</h3>
+            <p class="text-calm-muted text-xs leading-relaxed max-w-2xl mx-auto">
+                Το περιεχόμενο της ιστοσελίδας έχει ενημερωτικό χαρακτήρα και δεν υποκαθιστά την ψυχοθεραπευτική διαδικασία. Η επικοινωνία μέσω της φόρμας δεν προορίζεται για επείγοντα περιστατικά.
+            </p>
+            <p class="text-calm-muted text-xs pt-6">
+                &copy; <script>document.write(new Date().getFullYear())</script> Χρήστος Καρύδας. Με την επιφύλαξη παντός δικαιώματος.
+            </p>
+        </div>
+    </footer>
+
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-calm-dark/95 flex items-center justify-center cursor-zoom-out" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors">
+            <i data-lucide="x" class="w-10 h-10 stroke-1"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Enlarged Space Image" class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl cursor-default" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-3');
+            } else {
+                navbar.classList.remove('shadow-sm');
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-3');
+            }
+        });
+
+        // Scroll Reveal Animation via Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Lightbox Functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(imageSrc) {
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightboxImg.src = '';
+                document.body.style.overflow = '';
+            }, 500);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
